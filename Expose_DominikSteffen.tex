@@ -156,7 +156,7 @@ Dominik Steffen
 % Titelblatt ENDE
 
 %\newpage
-%\thispagestyle{empty}
+\thispagestyle{empty}
 \mbox{}
 
 % Inhaltsverzeichnis START
@@ -164,6 +164,7 @@ Dominik Steffen
 	\clearpage
 	\pagestyle{empty}
 	%\addcontentsline{toc}{chapter}{Inhaltsverzeichnis} 
+	\thispagestyle{empty}
 	\tableofcontents
 	\clearpage
 \endgroup
@@ -185,7 +186,7 @@ Dominik Steffen
 %%%%%%
 %	Einführung / Einleitung START
 %%%%%%
-\chapter{Eine (technische) Einführung in die Virtuelle Welt}
+\chapter{Eine (technische) Einführung in die virtuelle Welt}
 
 \section{Überblick}
 Bei der Oculus Rift handelt es sich um ein Anzeige und Eingabedevice der Firma Oculus VR Inc. aus Californien. Die Oculus Rift, im folgenden kurz Rift genannt, ist ein Virtual Reality Headset einer neuen Generation. Das Device wird vom Nutzer wie eine Skibrille getragen. Anwendungen welche speziell für die Rift entwickelt wurden bieten dem Nutzer eine immersive 3D Erfahrung. Die Brille verfügt über einen Monitor und zwei Linseneinsätze. Der Bildschirm gibt zwei Bilder aus, eines für jedes Auge des Nutzers, er kann somit die virtuelle Welt in 3D erleben. Dabei beträgt das Sichtfeld des Nutzers, das Field of View (kurz. FOV) mehr als 90 Grad (horizontal). Die Brille verfügt ebenso über ein Gyroskop welches Bewegungen des Nutzers mitschneidet und diese über eine USB Kabel Verbindung an die laufende Applikation zurück gibt. So kann der Nutzer sich in der Virtuellen Welt bewegen, drehen und neigen. Besonders durch den geringen Preis ist die Oculus Rift für Consumer interessanter. Der spätere Verkaufspreis soll laut OculusVR nicht über 400 US Dollar liegen. Der Preis des aktuellen Development Kits der ersten Generation liegt bei 300 US Dollar.
@@ -238,29 +239,27 @@ Das Display ist in einem Kunststoffgehäuse der Oculus Rift integriert und der N
 
 Es ist möglich die Entfernung des Displays zu den Linsen durch zwei Schrauben zu regeln. Dadurch bietet sich die Möglichkeit weitere Sehschwächen auszugleichen. Das System zeigt sich hier sehr variable und ist gut an unterschiedliche Nutzertypen anzupassen.
 
-\subsection{Das Head Tracking mit Hilfe des Gyrosensors}
+\subsection{Head Tracking mit Hilfe von Gyrosensorsoren  und Beschleunigungssensoren}
 Das Head Trackingsystem besteht aus einer Kombination eines 3 Achsen Gyrometers und Beschleunigungssensoren . Ein Magnetometer unterstützt hierbei die Ausrichtung des gerenderten Views auf dem Bildschirm der Rift. Aktuell werden von den Bewegungssensoren nur Rotationen der Brille in verschiedene Richtungen registriert und in Fließkommawerten an den Treiber per USB Verbindung weiter gegeben. Bewegungen der Brille entlang der Achsen können aktuell noch nicht getracked werden. Der Crystal Cove Prototyp unterstützt ein Position Tracking Raum durch die integration einer Webcam in das Rift System. Diese Kamera wird vor dem Rezipienten aufgestellt und tracked die Translationen des Head Mounted Displays (HMD) im Raum.
 
 Die Sensoren der Rift arbeiten mit einer Abtastrate von 1000 Hz pro Sekunde. Diese Abtastrate genügt ein fast Fehlerfreies Erlebnis zu erschaffen. Aber auch hier bietet der neue Prototyp wieder eine Verbesserung. Durch geringere Latenzen beim Tracking wird der Immersive Eindruck des Erlebnisses noch verstärkt. Allerdings lassen sich damit noch keine Latenzen von unter 20ms erreichen. Durch ständige Optimierung Algorithmen welche ein Vorraussagen (prediction) der Kopfbewegungen des Nutzers möglich machen verbessern sich die Latenzen jedoch zusehens. Ein Wert von 50ms wird zwar als ausreichend repsonsive bezeichnet, ist allerdings merkbar verzögernd im Gegensatz zu niedrigeren Latenzzeiten. Diese Latzenzeiten werden von der Firma OculusVR als Richtwerte angegeben und sollen im Laufe dieser Arbeit kontrolliert und gegebenenfalls korrigiert werden. Der technische Teil der Arbeit soll insbesondere Wert darauf legen einen sehr Latenzarme verarbeitung der Trackingpipeline zu implementieren um hier bereits einen massiven negativen Einfluss auf das Wohlbefinden des Rezipienten zu verhindern.
 
-\section{Stereodarstellung in interaktiver Software}
-TBD
 
 \section{Ein Überblick über Simulator Sickness und die Ursachen}
 Simulator Sickness wird im Allgemeinen als ''symptoms of discomfort that arise from using simulated environments'' bezeichnet.
 Zur Simulator Sickness zählen verschiedene Symptome welche bei vielen Nutzern zu ernsthaftem Unwohlsein führen können. Zu diesen Symptomen gehören unter anderem Schwindel, Übelkeit, Ermüdung der Augen, Verlust der Orientierung, Kopfschmerzen und weitere. Simulator Sickness entsteht aus einem Konflikt zwischen Sensorischer und Geistig erlebter Bewegung. Es ist kaum vorher zu sagen ob ein Nutzer die genannten Symptome oder weitere erleben wird wenn er ein VR System oder die Oculus Rift im speziellen verwendet. Es ist auch nicht davon auszugehen, dass ein Nutzer der noch nie Simulator Sickness verspürte sie mit der Rift auch nicht verspüren wird. Simulator Sickness kann plötzlich auftreten und eine Immunität ist kaum möglich. Es ist allerdings in der Tat möglich den Körper auf die Verwendung von VR Systemen zu trainieren und so den Einfluss der Simulator Sickness auf den Körper über die Zeit zu reduzieren. Als Beispiel sollen an dieser Stelle die Erlebnisse des Authors angeführt werden. Zu beginn der Arbeit mit der Rift konnten in etwa 15 Minuten Zeit in der Virtuellen Realität verbacht werden, wohingegen nach mehrfacher Nutzung die Zeiten aktuell bis zu zwei Stunden gesteigert werden konnten ohne das massive  einsetzen von Simulator Sickness. Es ist jedoch anzuraten regelmässige Pausen einzulegen.
 
-\section{Ansätze zur Reduzierung von Simulator Sickness im technischen Bereich}
+\section{Ansätze zur Reduzierung von Simulator Sickness in der technischen Umsetzung}
 Simulator Sickness resultiert aus verschiedenen Faktoren während der Nutzung eines VR Systems. Die wichtigsten Faktoren hier sind die Bildwiederholrate, die Beschleunig von Animationen und Bewegungen im dreidimensionalen Raum, die Auflösung des Anzeigedisplays, die Latenz während dem Tracking von Kopf Rotationen. 
 
 Um das Schwindelgefühl weiter einzudämmen sollten keine extremen Beschleunigungen ohne Vorwarnungen im in der Interaktiven Software vorhanden sein. Hierzu zählen Animations Sequenzen als auch vom Nutzer gesteuerte Bewegungen. Viele Nutzer reagieren sehr anfällig auf Bewegungsanimationen welche plötzliche Bewegungscycles enthalten. Es hat sich laut Oculus VR auch herausgestellt, dass Spieler sich mit einer Laufgeschwindigkeit von etwa 1,6 Metern pro Sekunde am besten in der Virtuellen Realität bewegen können.
 
 Die Auflösung des Displays ist aktuell eines der größten Probleme der Simulator Sickness im Zusammenhang mit der Oculus Rift.  Eine Auflösung pro Auge mit 640x800 Pixeln ist für heutige Spiele nicht mehr ausreichend. Im speziellen sind schmale Objekte wie z.B. dynamische Grashalme ein Problem, da durch die geringe Anzahl an Pixeln die feinen Animationen nicht in genügend Abstimmungen dargestellt werden. Durch diese Problematik springen schmale Objekte auf dem Display hin und her und erzeugen ein Flackern im Bild. Dieses Flackern löst beim Nutzer oft ein Unwohlsein bis hin zum Schwindelgefühl und Übelkeit aus. Es ist also darauf zu achten während der Entwicklung für das Devkit keine extrem feinen Strukturen zu verwenden. Die Größe des Interfaces sollte sich ebenso an der Auflösung orientieren. Wichtige Texte und Elemente der Anzeige und Informationen für den Rezipienten müssen ausreichend groß dargestellt werden. Es ist wichtig Menüs und Texte besonders bei Portierungen für die Rift neu zu gestalten. Einfache Portierungen sind für den Nutzer nur schwer zu ertragen da Texte auch zu den feineren Strukturen in einer interaktiven Software zählen.
 
-\subsection{Frames per Second}
+\subsection{Frames per Second - Bildwiederholrate im Zusammenhang mit Motion Sickness}
 Die Bildwiederholrate sollte nach einer Empfehlung von OculusVR auf dem Oculus internen Anzeigedisplay über 60Hz betragen. Diese Frames per Second (FPS) Zahlen verhindern auf dem Oculus Rift fähigen Display ein stottern und verschmieren der gerenderten Bilder und unterstützen so die flüssigere Darstellung der Inhalte. Durch eine flüssigere Darstellung lässt sich die Ermüdung der Augen als auch das Schwindelgefühl bekämpfen. Eine flüssigere Darstellung der Software lässt sich auf verschiedene Arten erreichen. In diesem Projekt soll hierauf nur im Konzeptionellen Teil eingegangen werden. Der Entwickler sollte auf jeden Fall immer die Framerate der Anwendung im Blick haben und wenn nötig auf Dekorationseffekte wie Partikeleffekte und Shader verzichten wenn sie die Framerate auf angestrebten Systemen unter 60 FPS droppen lässt.
 
-\subsection{Rendering und der Screen Door (Fliegengitter) Effekt}
+\subsection{Rendering und der Screen Door Effekt - auch Fliegengittereffekt}
 Um mit der aktuellen Version der Oculus Rift ausreichend gute Ergebnisse im Bereich des Rendering und der Grafikpräsentation zu erzielen ist es anzuraten für den Renderer der Software ein Supersampling und Anti-Aliasing System zu verwenden. Das bedeutet die Auflösung des Renderbuffers mit einem vielfachen der tatsächlichen Ausgabeauflösung zu initialisieren. Hierdurch wirkt das Bild wesentlich ruhiger als wenn es in einer natürlichen Auflösung berechnet wird. Aktuelle Software wie Battlefield4 bieten Supersamling auch ohne Rift integration an um das Bild im Allgemeinen ruhiger wirken zu lassen und dem Nutzer ein Kantenfreies Erlebnis zu bieten. 
 
 \subsubsection{Der Screen Door Effekt - Ein temporäres Hardware Problem}
@@ -308,6 +307,11 @@ Die Consumer Tests beziehen sich hier auf Tests mir mehreren Konfigurationsdatei
 %	Schluss START
 %%%%%%
 \chapter{Der Versuch einer Vorraussage der kurzfristigen Entwicklungen in der virtuellen Welt}
+OculusVR hat bis jetzt keine Angaben zu einem möglichen Veröffentlichungsdatum der Oculus Rift gemacht. Es wird in der Branche jedoch angenommen, dass das System spätestens im vierten Quartal 2014 veröffentlicht werden soll. Aufgrund der schnellen Entwicklungen im Virtual Reality Bereich sind bis zur Veröffentlichung des Systems sicher noch einige Prototypen der Rift zu erwarten. Mit einem 4K System wird in der Branche noch - zumindest als Prototyp - vor dem Datum der Veröffentlichung gerechnet.
+
+Viele Entwickler überdenken gerade eine Implementierung der Rift in ihre Software. Das Unternehmen CCP, verantwortlich für das Online Spiel EVE-Online hat am 05.02.2014 bekannt gegeben zwecks der Entwicklung und Veröffentlichung von EVE Valkyrie (einem Oculus exclusive) eng mit OculusVR zusammen zu arbeiten. OculusVR agieren hierbei als Publisher für das erste Rift Exklusive Spiel eines großen europäischen Studios. Unternehmen wie Gaijin Entertainment haben bereits eine Rift Unterstützung in ihr Erfolgreiches Online Spiel War Thunder als Beta Test Modul integriert. Valve Software, verantwortlich für die Online Plattform Steam und Spiele wie Half-Life und Counterstrike hat bereits eine Oculus Rift integration in den Shop und viele ihrer eigenen Spiele implementiert. Valve forscht aktuell selbst an einem VR Device und arbeitet nebenher sehr eng mit OculusVR zusammen. Die Source Engine von Valve ist eine Engine mit einer zum aktuellen Zeitpunkt sehr ausgefeilten Rift unterstützung. Auf der Steam Online Plattform gibt es aktuell sogar eine eigene Sektion mit Spielen (meist Indie Spiele, d.h. in selbst veröffentlichung ohne Unterstützung durch Publisher) die für die Oculus Rift entwickelt wurden oder zumindest eine Grundsätzliche implementierung der Funktionen des Systems bieten.
+
+Durch das Auftreten dieser Unternehmen zeichnet sich ein wahrer impact der VR Brille auf den Gaming und Entertainment Markt ab. Dieses Projekt möchte einen Beitrag leisten um einen neuen Abschnitt der Softwareentwicklung und Gestaltung mit all seinen Möglichkeiten zu betreten.
 %%%%%%
 %	Schluss ENDE
 %%%%%%
