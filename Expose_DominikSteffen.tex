@@ -1,6 +1,7 @@
 % !!!SUCHE NACH IMPORTANT ZUM CHECKEN!!!
 
-\documentclass[pagesize, paper=a4, fontsize=12pt,titlepage=true, headings=small, headnosepline, abstractoff, liststotoc, nochapterprefix, plainheadsepline, twoside]{scrreprt}
+\documentclass[pagesize, paper=a4, fontsize=12pt,titlepage=true, headings=small, headnosepline, abstractoff, liststotoc, nochapterprefix, plainheadsepline]{scrreprt}
+%\documentclass[pagesize, paper=a4, fontsize=12pt,titlepage=true, headings=small, headnosepline, abstractoff, liststotoc, nochapterprefix, plainheadsepline, twoside]{scrreprt}
 \usepackage[a4paper, left=40mm, right=30mm, top=20mm, bottom=30mm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
@@ -93,8 +94,8 @@ Dominik Steffen
 
 
 % Titel
-\title{Hausarbeit in Wissenschaftlichem Arbeiten und Schreiben}
-\subtitle{Blabla Untertitel}
+\title{Getting Rid of VR Simulator Sickness}
+\subtitle{Aufbau eines Best Practice Frameworks zur Integration der Oculus Rift in interaktiver Software als Anzeige und Eingabedevice unter der Berücksichtigung der Reduzierung der Simulator Sickness}
 \parindent 0pt
 
 
@@ -141,7 +142,7 @@ Dominik Steffen
 %	Unterstrichene Kapitelüberschriften ENDE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
+%\newpage
 
 \makeindex
 \onehalfspacing
@@ -154,29 +155,8 @@ Dominik Steffen
 %\includepdf[pages={1}]{../Bilder/deckblatt.pdf}
 % Titelblatt ENDE
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	Abstract START
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-\thispagestyle{empty}
-\mbox{}
-
-\begingroup
-\newpage
-\pagestyle{empty}
-\renewcommand*{\chapterpagestyle}{empty}
-\chapter*{Abstract}%
-%\addcontentsline{toc}{chapter}{Abstract}
-
-\clearpage
-\endgroup
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	Abstract ENDE
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newpage
-\thispagestyle{empty}
+%\newpage
+%\thispagestyle{empty}
 \mbox{}
 
 % Inhaltsverzeichnis START
@@ -188,7 +168,7 @@ Dominik Steffen
 	\clearpage
 \endgroup
 % Inhaltsverzeichnis ENDE
-\newpage
+%\newpage
 \thispagestyle{empty}
 \mbox{}
 
@@ -206,6 +186,30 @@ Dominik Steffen
 %	Einführung / Einleitung START
 %%%%%%
 \chapter{Einleitung}
+
+\section{Überblick}
+Bei der Oculus Rift handelt es sich um ein Anzeige und Eingabedevice der Firma Oculus VR Inc. aus Californien. Die Oculus Rift, im folgenden kurz Rift genannt, ist ein Virtual Reality Headset einer neuen Generation. Das Device wird vom Nutzer wie eine Skibrille getragen. Anwendungen welche speziell für die Rift entwickelt wurden bieten dem Nutzer eine immersive 3D Erfahrung. Die Brille verfügt über einen Monitor und zwei Linseneinsätze. Der Bildschirm gibt zwei Bilder aus, eines für jedes Auge des Nutzers, er kann somit die virtuelle Welt in 3D erleben. Dabei beträgt das Sichtfeld des Nutzers, das Field of View (kurz. FOV) mehr als 90 Grad (horizontal). Die Brille verfügt ebenso über ein Gyroskop welches Bewegungen des Nutzers mitschneidet und diese über eine USB Kabel Verbindung an die laufende Applikation zurück gibt. So kann der Nutzer sich in der Virtuellen Welt bewegen, drehen und neigen. Besonders durch den geringen Preis ist die Oculus Rift für Consumer interessanter. Der spätere Verkaufspreis soll laut OculusVR nicht über 400 US Dollar liegen. Der Preis des aktuellen Development Kits der ersten Generation liegt bei 300 US Dollar.
+
+Zum aktuellen Zeitpunkt, Januar 2014, ist das VR Device nur als Entwicklerversion (Development Kit) verfügbar. Sie kann aber von jedem Interessenten bestellt werden. Diese Version des Gerätes ist dazu gedacht an der Thematik der Virtuellen Realität zu forschen und Problembereiche der Softwareentwicklung für den VR Bereich zu identifizieren und zu beheben. Für Consumer ist das Produkt noch nicht gedacht. Es existiert noch so gut wie kaum eine Consumer taugliche Software. Bei der meisten Software handelt es sich um Demos die einen speziellen Sachverhalt oder ein bestimmtes Problem mit der Brille modellieren und versuchen es durch Softwareseitige Algorithmen und Designideen zu beheben oder zu verbessern.
+
+Das Unternehmen Oculus VR arbeitet selbst stetig an einer Weiterentwicklung des Systems. Auf der Consumer Entertainment Show (CES) 2014 in Las Vegas USA, stellte das Unternehmen einen neuen Prototyp der Entwicklerversion vor. Dieser Crystal Cove genannte Prototyp bietet im Gegensatz zum aktuell erhältlichen Development Kit ein höher aufgelöstes Display und damit eine feinere Darstellung der Inhalte und weiterhin eine Möglichkeit den Nutzer während der Nutzung der Rift im Raum zu tracken. Diese Maßnahmen wurden von Oculus VR als Antwort auf die bei sehr vielen Rezipienten massiv auftretende Simulator Sickness entwickelt. Zum aktuellen Zeitpunkt ist dieser Prototyp für Entwickler leider noch nicht zugänglich weßhalb sich diese Arbeit mit dem zur Verfügung stehenden Development Kit v1.0 beschäftigt.
+
+Die Webseite von Oculus VR bietet den Entwicklern und Forschungsteams, welche sich an vielen Universitäten und Hochschulen der ganzen Welt zusammen finden eine Plattform zum Erfahrungsaustausch und zur Diskussion der neusten Entwicklungen im Bereich Virtual Reality. Viele Einflüsse der Community finden ihren Weg in die weitere Entwicklung der Oculus Rift. Im November 2013 wurde ein von der Community angeregter Lantecy Tester durch Oculus VR umgesetzt und kann seit kurzem als Hardware Debugging Device geordert werden. Das Gerät unterstützt Entwickler bei der Messung der Verzögerungszeiten (Latenzen) welche bei der Messung und Verarbeitung der Head Tracking Daten entstehen. Eine Latzenz von unter 20ms wird von OculusVR und vielen nahmhaften Entwicklern, unter anderem John Carmack, in der Gaming und interactive software Branche als Zielt angestrebt. Carmack ist aktuell der CTO (Chief Technical Officer) von Oculus VR und hat für diesen Posten seine Langjährige Stelle bei id Software in Dallas, Texas aufgegeben. Carmack war in den 90er Jahren maßgeblich an der Verbreitung von 3D Echtzeit Engines beteiligt. Viele Entwickler und Unternehmen sehen in der Oculus Rift die Zukunft des Gaming.
+
+
+\section{Über dieses Projekt}
+Diese Arbeit möchte einen Teil zur aktuellen Entwicklung beitragen und beschäftig sich im Kern mit der technischen als auch design orientierten Reduzierung der aktuell noch massiv auftretenden Simulator Sickness. Ein Best Framework, sowohl in Schriftlicher Form als auch als Software soll anderen interessierten Entwicklern einen einfachen Einstieg in die Entwicklung von VR Software ermöglichen und dabei die allgemeinen Fehler automatisch verhindern und aufklären. Dies ist ein wichtiger Schritt um zu einem Consumer Markt fähigen Produkt zu gelangen. Der Flop von 3D Filmen im Kino vor zehn bis fünzehn Jahren zeigte, dass mit neuen Techniken sehr sorgsam umgegangen werden muss und einiges an Forschung nötig ist um ein solches Produkt auf dem Massenmarkt zu etablieren. Es gibt sowohl auf technischer als auch auf theoretischer Ebene noch ungeklärte Fragen bezüglich der Implementierung der Rift in interaktiver Software. 
+
+Das Framework soll letzendlich eine Unterstützung für die Entwicklung neuer Produkte sein. Es soll helfen die massivsten Simulator Sickness Symptome zu vermeiden und ein angenehmes Nutzungserlebnis für den Rezipienten erschaffen. Zu den häufigsten Symptomen sind hier zu zählen:
+\begin{itemize}
+\item Ermüdung der Augen
+\item Schwindlgefühle
+\item Orientierungsverlust
+\item Übelkeit
+\end{itemize}
+
+Diese Arbeit bedient sich sowohl dem aktuell noch als Draft gekennzeichneten Best Practice Dokument von OculusVR sowohl als auch der Seite \url{http://developer.oculusvr.com/best-practices} welche sich im austausch mit Entwicklern und dem OculusVR eigenen Team der Problematik Simulator Sickness widmet. Zusätzlich werden im Laufe des Projektes verschiedene Software und Probanten Tests mit den Devices und der Software durchgeführt. Zur Zeit ist eine zukünftige Entwicklung des System schwer vorraus zu sagen. So kann es sein, dass während des Projektes der Crystal Cove Prototyp, oder ein noch weiter Entwickelter Typ für Entwickler zugänglich wird.
+
 %%%%%%
 %	Einführung / Einleitung ENDE
 %%%%%%
@@ -216,6 +220,64 @@ Dominik Steffen
 %	Hauptteil START
 %%%%%%
 \chapter{Hauptteil}
+\section{Beschreibung der Hardware und der technischen Spezifikationen}
+Das Oculus Rift System, meist nur als die Oculus Rift oder Rift bezeichnete System besteht als folgenden Komponenten.
+\begin{itemize}
+\item Der Brille selbst
+\item Dem Tracking Daten und Display Device
+\item Einer Verbindung an eine Grafikkarte (GPU) eines Rechners
+\item Einer Stromversorgung zum Daten und Display Device
+\end{itemize}
+Die Rift benötigt zur installation verschiedene Treiber welche jedoch über eine USB Verbindung auf einem Windows oder Mac System installiert werden. Diese Treiber werden zur Kommunikation des Systems mit dem Head Tracking Device der Brille genutzt und sind für die Verwendung des Systems essentiell. Das System kann über einen DVI oder HDMI Anschluss an einer Grafikkarte (GPU) betrieben werden. Es ist hierbei darauf zu achten, dass die GPU ausreichend Schnell ist, da sie für den Betrieb der Rift die 3D Szene zwei mal aus verschiedenen Blickwinkeln rendern und verarbeiten muss.
+
+\subsection{Das Display der Oculus Rift}
+Das Display der aktuellen Generation des Development Kits unterstützt eine Auflösung von insgesamt 1280x800 Pixeln. Hierbei handelt es sich um ein 16:10 Format. Die Auflösung entspricht ungefähr einer HD Ready Auflösung im TV Format. Durch die Aufteilung des Displays auf zwei Augen halbiert sich die Pixelzahl für jedes Auge auf 640x800 Pixel. Das entspricht einem 4:5 Seitenverhöltnis. Hierdurch wird es möglich ein Sichtfeld von etwa 90 Grad (horizontal) und 110 Grad (diagonal) zu erreichen. Der von Oculus VR auf der E3 und der CES 2014 vorgestellte Prototyp verfügt bereits über eine Full HD Auflösung von 1920x1080 Pixeln. Das Zielt von von Oculus VR ist es eine Consumer Variante mindestens im Full HD Format anzubieten und wenn möglich sogar auf einen 4K Prototyp zu erhöhen.
+
+\subsection{Die Linsen und ihre Notwendigkeit}
+Das Display ist in einem Kunststoffgehäuse der Oculus Rift integriert und der Nutzer betrachtet das Display aus wenigen Zentimetern Entfernung. Durch die geringe Entfernung könnte der Nutzer auf dem Display nichts erkennen. Das Rift System ist aber mit einer Vorrichtung für zwei Linsen ausgestattet. Diese Linsen ermöglichen es, dass der Nutzer aus kurzer Entfernung ein riesiges Sichtfeld erlebt und sich seine Augen trotzdem entspannen können. Durch den Schliff der Linsen sind die Augen bei der Nutzung der Rift entspannt. Sie fixieren sich theoretisch auf eine Entfernung von mehr als 7 Metern was den Zirkularmuskel der Pupille entspannt. Durch die Verzerrung der Linsen ist es aber nötig das Bild bereits im Rechner mit einer Barrel distortion (Fassartigen Verzerrung) zu versehen. Hierdurch entzerren die Linsen das Bild wieder. Für Brillenträger werden beim Entwicklerkit Linsen mit verschiedener Stärke mitgeliefert. Diese Linsen sind durch einfaches einsetzen und drehen in das Rift System zu integrieren und können jederzeit ausgetauscht werden.
+
+Es ist möglich die Entfernung des Displays zu den Linsen durch zwei Schrauben zu regeln. Dadurch bietet sich die Möglichkeit weitere Sehschwächen auszugleichen. Das System zeigt sich hier sehr variable und ist gut an unterschiedliche Nutzertypen anzupassen.
+
+\subsection{Das Head Tracking mit Hilfe des Gyrosensors}
+Das Head Trackingsystem besteht aus einer Kombination eines 3 Achsen Gyrometers und Beschleunigungssensoren . Ein Magnetometer unterstützt hierbei die Ausrichtung des gerenderten Views auf dem Bildschirm der Rift. Aktuell werden von den Bewegungssensoren nur Rotationen der Brille in verschiedene Richtungen registriert und in Fließkommawerten an den Treiber per USB Verbindung weiter gegeben. Bewegungen der Brille entlang der Achsen können aktuell noch nicht getracked werden. Der Crystal Cove Prototyp unterstützt ein Position Tracking Raum durch die integration einer Webcam in das Rift System. Diese Kamera wird vor dem Rezipienten aufgestellt und tracked die Translationen des Head Mounted Displays (HMD) im Raum.
+
+Die Sensoren der Rift arbeiten mit einer Abtastrate von 1000 Hz pro Sekunde. Diese Abtastrate genügt ein fast Fehlerfreies Erlebnis zu erschaffen. Aber auch hier bietet der neue Prototyp wieder eine Verbesserung. Durch geringere Latenzen beim Tracking wird der Immersive Eindruck des Erlebnisses noch verstärkt. Allerdings lassen sich damit noch keine Latenzen von unter 20ms erreichen. Durch ständige Optimierung Algorithmen welche ein Vorraussagen (prediction) der Kopfbewegungen des Nutzers möglich machen verbessern sich die Latenzen jedoch zusehens. Ein Wert von 50ms wird zwar als ausreichend repsonsive bezeichnet, ist allerdings merkbar verzögernd im Gegensatz zu niedrigeren Latenzzeiten. Diese Latzenzeiten werden von der Firma OculusVR als Richtwerte angegeben und sollen im Laufe dieser Arbeit kontrolliert und gegebenenfalls korrigiert werden. Der technische Teil der Arbeit soll insbesondere Wert darauf legen einen sehr Latenzarme verarbeitung der Trackingpipeline zu implementieren um hier bereits einen massiven negativen Einfluss auf das Wohlbefinden des Rezipienten zu verhindern.
+
+\section{Stereodarstellung in interaktiver Software}
+TBD
+
+\section{Ein Überblick über Simulator Sickness und die Ursachen}
+Simulator Sickness wird im Allgemeinen als ''symptoms of discomfort that arise from using simulated environments'' bezeichnet.
+Zur Simulator Sickness zählen verschiedene Symptome welche bei vielen Nutzern zu ernsthaftem Unwohlsein führen können. Zu diesen Symptomen gehören unter anderem Schwindel, Übelkeit, Ermüdung der Augen, Verlust der Orientierung, Kopfschmerzen und weitere. Simulator Sickness entsteht aus einem Konflikt zwischen Sensorischer und Geistig erlebter Bewegung. Es ist kaum vorher zu sagen ob ein Nutzer die genannten Symptome oder weitere erleben wird wenn er ein VR System oder die Oculus Rift im speziellen verwendet. Es ist auch nicht davon auszugehen, dass ein Nutzer der noch nie Simulator Sickness verspürte sie mit der Rift auch nicht verspüren wird. Simulator Sickness kann plötzlich auftreten und eine Immunität ist kaum möglich. Es ist allerdings in der Tat möglich den Körper auf die Verwendung von VR Systemen zu trainieren und so den Einfluss der Simulator Sickness auf den Körper über die Zeit zu reduzieren. Als Beispiel sollen an dieser Stelle die Erlebnisse des Authors angeführt werden. Zu beginn der Arbeit mit der Rift konnten in etwa 15 Minuten Zeit in der Virtuellen Realität verbacht werden, wohingegen nach mehrfacher Nutzung die Zeiten aktuell bis zu zwei Stunden gesteigert werden konnten ohne das massive  einsetzen von Simulator Sickness. Es ist jedoch anzuraten regelmässige Pausen einzulegen.
+
+\section{Ansätze zur Reduzierung von Simulator Sickness im technischen Bereich}
+Simulator Sickness resultiert aus verschiedenen Faktoren während der Nutzung eines VR Systems. Die wichtigsten Faktoren hier sind die Bildwiederholrate, die Beschleunig von Animationen und Bewegungen im dreidimensionalen Raum, die Auflösung des Anzeigedisplays, die Latenz während dem Tracking von Kopf Rotationen. 
+
+Um das Schwindelgefühl weiter einzudämmen sollten keine extremen Beschleunigungen ohne Vorwarnungen im in der Interaktiven Software vorhanden sein. Hierzu zählen Animations Sequenzen als auch vom Nutzer gesteuerte Bewegungen. Viele Nutzer reagieren sehr anfällig auf Bewegungsanimationen welche plötzliche Bewegungscycles enthalten. Es hat sich laut Oculus VR auch herausgestellt, dass Spieler sich mit einer Laufgeschwindigkeit von etwa 1,6 Metern pro Sekunde am besten in der Virtuellen Realität bewegen können.
+
+Die Auflösung des Displays ist aktuell eines der größten Probleme der Simulator Sickness im Zusammenhang mit der Oculus Rift.  Eine Auflösung pro Auge mit 640x800 Pixeln ist für heutige Spiele nicht mehr ausreichend. Im speziellen sind schmale Objekte wie z.B. dynamische Grashalme ein Problem, da durch die geringe Anzahl an Pixeln die feinen Animationen nicht in genügend Abstimmungen dargestellt werden. Durch diese Problematik springen schmale Objekte auf dem Display hin und her und erzeugen ein Flackern im Bild. Dieses Flackern löst beim Nutzer oft ein Unwohlsein bis hin zum Schwindelgefühl und Übelkeit aus. Es ist also darauf zu achten während der Entwicklung für das Devkit keine extrem feinen Strukturen zu verwenden. Die Größe des Interfaces sollte sich ebenso an der Auflösung orientieren. Wichtige Texte und Elemente der Anzeige und Informationen für den Rezipienten müssen ausreichend groß dargestellt werden. Es ist wichtig Menüs und Texte besonders bei Portierungen für die Rift neu zu gestalten. Einfache Portierungen sind für den Nutzer nur schwer zu ertragen da Texte auch zu den feineren Strukturen in einer interaktiven Software zählen.
+
+\subsection{Frames per Second}
+Die Bildwiederholrate sollte nach einer Empfehlung von OculusVR auf dem Oculus internen Anzeigedisplay über 60Hz betragen. Diese Frames per Second (FPS) Zahlen verhindern auf dem Oculus Rift fähigen Display ein stottern und verschmieren der gerenderten Bilder und unterstützen so die flüssigere Darstellung der Inhalte. Durch eine flüssigere Darstellung lässt sich die Ermüdung der Augen als auch das Schwindelgefühl bekämpfen.
+
+\subsection{Reduzierung der Latenzzeiten}
+
+
+\subsection{Rendering und der Screen Door (Fliegengitter) Effekt}
+Um mit der aktuellen Version der Oculus Rift ausreichend gute Ergebnisse im Bereich des Rendering und der Grafikpräsentation zu erzielen ist es anzuraten für den Renderer der Software ein Supersampling und Anti-Aliasing System zu verwenden. Das bedeutet die Auflösung des Renderbuffers mit einem vielfachen der tatsächlichen Ausgabeauflösung zu initialisieren. Hierdurch wirkt das Bild wesentlich ruhiger als wenn es in einer natürlichen Auflösung berechnet wird. Aktuelle Software wie Battlefield4 bieten Supersamling auch ohne Rift integration an um das Bild im Allgemeinen ruhiger wirken zu lassen und dem Nutzer ein Kantenfreies Erlebnis zu bieten.
+
+\section{Ansätze zur Reduzierung von Simulator Sickness im konzeptionellen Bereich}
+Grundsätzlich gibt es verschiedene Ansätze Simulator Sickness konzeptionell zu verhindern. Zuerst ist es möglich, dass der Nutzer während der Nutzung der Interaktiven Software versucht durch Bewegungen seines Körpers, oder die Nutzung eines Systems mit haptischem Feedback wie z.B. Force Feedback Systemen ein Aufkommen von Simulator Sickness verhindern oder zumindest die chance drastisch zu verringern. Aktuell ist das "Mitbewegen" des Körpers eine gute und vor allem günstige Möglichkeit während des Entwickelns die Testzeiten in der Virtuellen Realität zu verlängern und das Erlebnis trotzdem immersiver zu gestalten.
+
+\section{}
+
+\section{Mögliche Inhalte eines Frameworks}
+Character Controller
+Cameras
+Input Methoden
+Richtwerte
+
+\section{Rezipienten Tests}
 %%%%%%
 %	Hauptteil ENDE
 %%%%%%
@@ -248,7 +310,7 @@ Dominik Steffen
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tabellen Verzeichnis START
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\%listoftables
+%\listoftables
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Tabellen Verzeichnis ENDE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
