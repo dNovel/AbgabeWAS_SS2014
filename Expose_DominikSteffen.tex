@@ -185,7 +185,7 @@ Dominik Steffen
 %%%%%%
 %	Einführung / Einleitung START
 %%%%%%
-\chapter{Einleitung}
+\chapter{Eine (technische) Einführung in die Virtuelle Welt}
 
 \section{Überblick}
 Bei der Oculus Rift handelt es sich um ein Anzeige und Eingabedevice der Firma Oculus VR Inc. aus Californien. Die Oculus Rift, im folgenden kurz Rift genannt, ist ein Virtual Reality Headset einer neuen Generation. Das Device wird vom Nutzer wie eine Skibrille getragen. Anwendungen welche speziell für die Rift entwickelt wurden bieten dem Nutzer eine immersive 3D Erfahrung. Die Brille verfügt über einen Monitor und zwei Linseneinsätze. Der Bildschirm gibt zwei Bilder aus, eines für jedes Auge des Nutzers, er kann somit die virtuelle Welt in 3D erleben. Dabei beträgt das Sichtfeld des Nutzers, das Field of View (kurz. FOV) mehr als 90 Grad (horizontal). Die Brille verfügt ebenso über ein Gyroskop welches Bewegungen des Nutzers mitschneidet und diese über eine USB Kabel Verbindung an die laufende Applikation zurück gibt. So kann der Nutzer sich in der Virtuellen Welt bewegen, drehen und neigen. Besonders durch den geringen Preis ist die Oculus Rift für Consumer interessanter. Der spätere Verkaufspreis soll laut OculusVR nicht über 400 US Dollar liegen. Der Preis des aktuellen Development Kits der ersten Generation liegt bei 300 US Dollar.
@@ -219,7 +219,7 @@ Diese Arbeit bedient sich sowohl dem aktuell noch als Draft gekennzeichneten Bes
 %%%%%%
 %	Hauptteil START
 %%%%%%
-\chapter{Hauptteil}
+\chapter{Probleme der virtuellen Welt und wie dieses Projekt versucht sie zu lösen}
 \section{Beschreibung der Hardware und der technischen Spezifikationen}
 Das Oculus Rift System, meist nur als die Oculus Rift oder Rift bezeichnete System besteht als folgenden Komponenten.
 \begin{itemize}
@@ -258,26 +258,46 @@ Um das Schwindelgefühl weiter einzudämmen sollten keine extremen Beschleunigun
 Die Auflösung des Displays ist aktuell eines der größten Probleme der Simulator Sickness im Zusammenhang mit der Oculus Rift.  Eine Auflösung pro Auge mit 640x800 Pixeln ist für heutige Spiele nicht mehr ausreichend. Im speziellen sind schmale Objekte wie z.B. dynamische Grashalme ein Problem, da durch die geringe Anzahl an Pixeln die feinen Animationen nicht in genügend Abstimmungen dargestellt werden. Durch diese Problematik springen schmale Objekte auf dem Display hin und her und erzeugen ein Flackern im Bild. Dieses Flackern löst beim Nutzer oft ein Unwohlsein bis hin zum Schwindelgefühl und Übelkeit aus. Es ist also darauf zu achten während der Entwicklung für das Devkit keine extrem feinen Strukturen zu verwenden. Die Größe des Interfaces sollte sich ebenso an der Auflösung orientieren. Wichtige Texte und Elemente der Anzeige und Informationen für den Rezipienten müssen ausreichend groß dargestellt werden. Es ist wichtig Menüs und Texte besonders bei Portierungen für die Rift neu zu gestalten. Einfache Portierungen sind für den Nutzer nur schwer zu ertragen da Texte auch zu den feineren Strukturen in einer interaktiven Software zählen.
 
 \subsection{Frames per Second}
-Die Bildwiederholrate sollte nach einer Empfehlung von OculusVR auf dem Oculus internen Anzeigedisplay über 60Hz betragen. Diese Frames per Second (FPS) Zahlen verhindern auf dem Oculus Rift fähigen Display ein stottern und verschmieren der gerenderten Bilder und unterstützen so die flüssigere Darstellung der Inhalte. Durch eine flüssigere Darstellung lässt sich die Ermüdung der Augen als auch das Schwindelgefühl bekämpfen.
-
-\subsection{Reduzierung der Latenzzeiten}
-
+Die Bildwiederholrate sollte nach einer Empfehlung von OculusVR auf dem Oculus internen Anzeigedisplay über 60Hz betragen. Diese Frames per Second (FPS) Zahlen verhindern auf dem Oculus Rift fähigen Display ein stottern und verschmieren der gerenderten Bilder und unterstützen so die flüssigere Darstellung der Inhalte. Durch eine flüssigere Darstellung lässt sich die Ermüdung der Augen als auch das Schwindelgefühl bekämpfen. Eine flüssigere Darstellung der Software lässt sich auf verschiedene Arten erreichen. In diesem Projekt soll hierauf nur im Konzeptionellen Teil eingegangen werden. Der Entwickler sollte auf jeden Fall immer die Framerate der Anwendung im Blick haben und wenn nötig auf Dekorationseffekte wie Partikeleffekte und Shader verzichten wenn sie die Framerate auf angestrebten Systemen unter 60 FPS droppen lässt.
 
 \subsection{Rendering und der Screen Door (Fliegengitter) Effekt}
-Um mit der aktuellen Version der Oculus Rift ausreichend gute Ergebnisse im Bereich des Rendering und der Grafikpräsentation zu erzielen ist es anzuraten für den Renderer der Software ein Supersampling und Anti-Aliasing System zu verwenden. Das bedeutet die Auflösung des Renderbuffers mit einem vielfachen der tatsächlichen Ausgabeauflösung zu initialisieren. Hierdurch wirkt das Bild wesentlich ruhiger als wenn es in einer natürlichen Auflösung berechnet wird. Aktuelle Software wie Battlefield4 bieten Supersamling auch ohne Rift integration an um das Bild im Allgemeinen ruhiger wirken zu lassen und dem Nutzer ein Kantenfreies Erlebnis zu bieten.
+Um mit der aktuellen Version der Oculus Rift ausreichend gute Ergebnisse im Bereich des Rendering und der Grafikpräsentation zu erzielen ist es anzuraten für den Renderer der Software ein Supersampling und Anti-Aliasing System zu verwenden. Das bedeutet die Auflösung des Renderbuffers mit einem vielfachen der tatsächlichen Ausgabeauflösung zu initialisieren. Hierdurch wirkt das Bild wesentlich ruhiger als wenn es in einer natürlichen Auflösung berechnet wird. Aktuelle Software wie Battlefield4 bieten Supersamling auch ohne Rift integration an um das Bild im Allgemeinen ruhiger wirken zu lassen und dem Nutzer ein Kantenfreies Erlebnis zu bieten. 
+
+\subsubsection{Der Screen Door Effekt - Ein temporäres Hardware Problem}
+Beim Screen Door Effekt handelt es sich um ein Problem das besonders durch die Verwendung der Linsen im Rift System hervor tritt. Zuletzt wurde das Problem vor einigen Jahren bei Monitoren mit sehr geringen Auflösungen aber großer Display Diagonale wahr genommen. Das Problem beschreibt, dass der Nutzer die Pixel eines Anzeigegerätes genau ausmachen kann. Durch die hohen Auflösungen der heutigen Anzeigegeräte hat sich dieses PRoblem eigentlich selbst beseitigt. Durch die vergrößerung der Linsen in der Oculus Rift werden die Pixel des Displays allerdings so stark vergrößert dass der Nutzer sie ohne Anstrengung von einander unterscheiden kann. Ein HD Display in der Oculus Rift wie im aktuellen Crystal Cove Prototypen zu sehen hat das Problem fast beseitigt. Die Verwendung eines 4K Displays als Anzeigedevice würde das Problem gänzlich lösen. Diese Displays sind in der Herstellung zum aktuellen Zeitpunkt aber noch um einiges teurer als ein einfaches FullHD Display. Ob ein solches Display es in die erste Consumer Version der Oculus Rift schafft ist aktuell noch nicht abzusehen.
+
+In diesem Projekt besteht also nicht die Möglichkeit diesen Bereich für die Nutzer angenehmer zu gestalten, da sich das Problem auf der Hardware Ebene manifestiert und sich dieses Problem lediglich mit Software Problemlösungen beschäftigt.
 
 \section{Ansätze zur Reduzierung von Simulator Sickness im konzeptionellen Bereich}
-Grundsätzlich gibt es verschiedene Ansätze Simulator Sickness konzeptionell zu verhindern. Zuerst ist es möglich, dass der Nutzer während der Nutzung der Interaktiven Software versucht durch Bewegungen seines Körpers, oder die Nutzung eines Systems mit haptischem Feedback wie z.B. Force Feedback Systemen ein Aufkommen von Simulator Sickness verhindern oder zumindest die chance drastisch zu verringern. Aktuell ist das "Mitbewegen" des Körpers eine gute und vor allem günstige Möglichkeit während des Entwickelns die Testzeiten in der Virtuellen Realität zu verlängern und das Erlebnis trotzdem immersiver zu gestalten.
+Grundsätzlich gibt es verschiedene Ansätze Simulator Sickness konzeptionell zu verhindern. Zuerst ist es möglich, dass der Nutzer während der Nutzung der Interaktiven Software versucht durch Bewegungen seines Körpers, oder die Nutzung eines Systems mit haptischem Feedback wie z.B. Force Feedback Systemen ein Aufkommen von Simulator Sickness verhindern oder zumindest die chance drastisch zu verringern. Aktuell ist das "Mitbewegen" des Körpers eine gute und vor allem günstige Möglichkeit während des Entwickelns die Testzeiten in der Virtuellen Realität zu verlängern und das Erlebnis trotzdem immersiver zu gestalten. Dieser Aspekt hat allerdings seine Grenzen. Es ist grundsätzlich zu vermeiden den Nutzer dazu zu animieren während einer Anwendung zu viel Bewegung auszuführen, da durch die sehr eingeschränlte Sicht mit der Brille nach Außen eine tatsächliche Verletzungsgefahr besteht.
 
-\section{}
+Während der Entwicklung einer immersiven interaktiven Anwendung ist darauf zu achten, dass das Modul welches die Steuerung des Charakters in der Anwendung realisiert (Character Controller) sauber implementiert ist und für verschiedene Nutzer Typen verschiedene Einstellungen zu lässt. Insbesondere eine Kalibrierung der Inter Ocular Distance (IOD), dem Abstand von Pupille zu Pupille, ist für das erträgliche Nutzen einer solchen Anwendung von entscheidender Bedeutung. Eine gute Anwendung unterscheidet sich hier von einer schlechten durch eine für den Nutzer einfach durchzuführenden Dokumentierten Kalibration des Systems. OculusVR bietet hier ein grundsätzliches Tool zur kalibrierung des Systems an. Dieses System arbeitet aber nur auf Treiber Ebene und ist kein Ersatz für eine saubere Umsetzung der Kalibrierung in der Anwendung.
+Weiterhin gehört zur  Umsetzung dieses Frameworks ein für andere Entwickler frei konfigurierbarer Controller der sowohl Bewegungsgeschwindigkeiten als auch verschiedene Kameraeinstellungen zulässt.
+
+Es ist ebenfalls angedacht dem Nutzer verschiedenste API Schnittstellen und Eingabemöglichkeiten zur Entwicklung an die Hand zu geben. Konrekt sind hier verschiedene Typen von Eingabedevices gemeint wie z.B. Gamepads, klassisch Tastatur und Maus so wie Bewegungssteuerungen wie Kinect und vergleichbare Systeme gemeint. Ein Gamepad hat sich während verschiedener Tests unter den Entwicklern dieses Projekts als beste Möglichkeit der Eingabe heraus gestellt. Dieser Ansatz wird während der Forschung weiter betrachtet und optimiert.
+
 
 \section{Mögliche Inhalte eines Frameworks}
-Character Controller
-Cameras
-Input Methoden
-Richtwerte
+Das Framework soll eine grundsätzliche Implementierung der wichtigsten Bestandteile eines Oculus Rift fähigen Projekts enthalten. Hiezu zählen ein Character Controller welcher über verschiedenste Input Methoden angesprochen werden kann. Des weiteren müssen für die erfolgreiche Implementierung des Charakter Controllers verschiedene Kamera Funktionen und Module erstellt werden. Wichtig sind hier vor allem einige vorkonfigurierte Werte an welchen sich andere Entwickler orientieren können. Ein Einheitliches Standard Interface auf Software Seite und in den Konfigurationswerten ist hier unumgänglich.
+
+\subsection{Cameras}
+Ein Kamera Modul soll verschiedene Funktionen unterstützen. Das Field of View muss genau  so wie eine relative Entfernunsberechnung zwischen den Kameras realisiert werden um die IOD des Systems exakt einzustellen. Zusätzlich muss für die Kameras und die Projektionsmatrix derselben ein BarrelShader geschrieben werden welcher in Ansätzen bereits von OculusVR geliefert wird. Der Shader kann an verschiedenen Stellen noch verfeinert werden.
+\subsection{Input Methoden}
+Als wichtigste Eingabemethode hat sich während verschiedener Tests ein Gamepad herausgestellt. Hierfür müssen Schnittstellen geschaffen werden. FUSEE bietet hier die Möglichkeit einige XInput fähige Geräte über eine \CSS API und DirectX anzusprechen. 
+\subsection{Character Controller}
+Der Character Controller selbst muss eine Verbindung zwischen den anderen Implementierten Modulen herstellen. Zusätzlich wird er ein gewisses Maß an Motion prediction (Vorhersage von Bewegungen) berechnen können.
+\subsection{Richtwerte}
+Die Richtwerte für die Konfigurationen einer Oculus Rift fähigen Anwendung sollen in Config Dateien mit einem XML Schema abgelegt werden. Diese Dateien sollen zur Laufzeit in das Softwaresystem geladen werden können. So kann ein Nutzer die Werte zur Laufzeit an seine Aktuellen Ansprüche anpassen. Die Anwendung selbst und vor allem die Rendepipeline soll darauf ausgelegt werden eine Bildwiederholrate von 60 Frames pro Sekunde zu erreichen. Dazu zählt, dass eine Auflösung von 640x800 für jedes Auge, oder in stärkeren Systemen ein vielfaches davon, für das Supersampling verwendet wird.
+
+\section{Entwicklungsprozess - Agile Software Entwicklung}
+Der Technische Teil dieses Projektes beschäftig sich mit der Software Entwicklung eines Frameworks für eine Engine. Vorraussichtlich handelt es sich hierbei um die FUSEE Game Engine der Hochschule Furtwangen. Die Entwicklung erfolgt nach dem Prozess der agilen Softwareentwicklung und dem Scrum System. Dieses System wird hier gewählt damit ausreichend schnell auf Änderungen an der Treiber Software der Oculus Rift und anderen Software Systemen reagiert werden kann. Für die FUSEE Engine existiert aktuell nur eine sehr grundsätzliche Implementierung der Oculus Rift als Anzeigegerät. Die Trackingdaten können aktuell noch nicht aus dem Treiber ausgelesen werden. Hier sind also zuerst Schnittstellen zwischen dem OculusVR Treiber und der Game Engine zu schaffen. 
 
 \section{Rezipienten Tests}
+Zur überprüfung der Ergebnisse wird das Projekt als OpenSource Projekt veröffentlicht. Es ist ebenfalls angedacht verschiedene Probanten Tests durchzuführen. Hierzu zählen Tests mir Consumern und einem fertigen Prototypen (Demo) einer Anwedung und zusätzlich Interviews mit verschiedenen Entwicklern der FUSEE Engine um die Ergonomie der Entwickler Tools zu testen.
+
+Die Consumer Tests beziehen sich hier auf Tests mir mehreren Konfigurationsdateien zur Vermeidung der Simulator Sickness. Die Probanten werden stets zu ihrem Befinden befragt um so eine Auswirkung der verschiedenen Einstellungen feststellen zu können.
+
+ Entwickler Tests werden durchgeführt in dem das Projekt neben der normalen veröffentlichung an der Hochschule ebenfalls im Forum von OculusVR weiteren Entwicklern vorgestellt wird. Es ist hier von nöten eine ausreichend große Akzeptanz unter den Entwicklern zu erreichen, so dass durch Rückmeldungen Rückschlüsse auf die Qualität der Entwicklungs Module gezogen werden können. 
 %%%%%%
 %	Hauptteil ENDE
 %%%%%%
@@ -287,7 +307,7 @@ Richtwerte
 %%%%%%
 %	Schluss START
 %%%%%%
-\chapter{Schluss}
+\chapter{Der Versuch einer Vorraussage der kurzfristigen Entwicklungen in der virtuellen Welt}
 %%%%%%
 %	Schluss ENDE
 %%%%%%
